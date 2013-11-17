@@ -3,6 +3,7 @@ from mongoengine import DictField
 from mongoengine import Document
 from mongoengine import EmailField
 from mongoengine import StringField
+from mongoengine import IntField
 from mongoengine import URLField
 from mongoengine import BooleanField
 import mongoengine.django.auth
@@ -50,7 +51,7 @@ class User(mongoengine.django.auth.User):
     verified_email_expiry = DateTimeField()
     verified_email = BooleanField()
     # Limit this on a per day basis
-    mail_sent_today = IntegerField()
+    mail_sent_today = IntField()
 
     def get_bookmarklet_url(self):
         # generate a boilerplate URL for each user
