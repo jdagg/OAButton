@@ -1,6 +1,5 @@
 # Django settings for oabutton project.
 
-import sys
 from os.path import dirname, abspath, join
 
 ROOT_PATH = dirname(dirname(abspath(__file__)))
@@ -15,7 +14,7 @@ except IOError:
     VERSION = "unknown"
 
 # Start override vars #
-DEBUG = False #(sys.argv[1] == 'runserver')
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 HOSTNAME = 'http://localhost:8000'
 DB_USER = 'postgres'
@@ -121,7 +120,6 @@ COMPRESS_PRECOMPILERS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
@@ -228,7 +226,6 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 if not DEBUG:
     # Send cookies only over HTTPS connections for production setup
     SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
 
 # Expire cookies in 24 hours
 SESSION_COOKIE_AGE = 86400

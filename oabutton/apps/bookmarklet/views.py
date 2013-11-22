@@ -1,9 +1,7 @@
-from django.core.context_processors import csrf
 from django.http import HttpResponse, HttpResponseServerError
 from django.shortcuts import redirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_http_methods
 from models import OAEvent, OAUser
 from oabutton.common import SigninForm, Bookmarklet
@@ -23,7 +21,6 @@ def show_map(req):
     return render_to_response(req, 'bookmarklet/site/map.html', context)
 
 
-@csrf_protect
 @require_http_methods(["POST"])
 def signin(request):
     """
@@ -72,7 +69,6 @@ def form1(req, slug):
     s = req.session
     s['slug'] = slug
 
-    c.update(csrf(req))
     c.update({'bookmarklet': form, 'slug': slug})
     return render_to_response('bookmarklet/page1.html', c,
                               context_instance=RequestContext(req))
@@ -80,7 +76,7 @@ def form1(req, slug):
 
 def form2(req):
     """
-    Show the bookmarklet form. We just need the CSRF token here.
+    Show the bookmarklet form.
     """
     s = req.session
     data = s['data']
@@ -89,7 +85,6 @@ def form2(req):
     event = OAEvent.objects.get(id=data['event_id'])
 
     c = {}
-    c.update(csrf(req))
     c.update({'scholar_url': scholar_url, 'doi': doi, 'url': event.url})
     return render_to_response('bookmarklet/page2.html', c,
                               context_instance=RequestContext(req))
@@ -110,7 +105,6 @@ def form3(req):
     event = OAEvent.objects.get(id=data['event_id'])
 
     c = {}
-    c.update(csrf(req))
     c.update({'scholar_url': scholar_url, 'doi': doi, 'url': event.url})
     return render_to_response('bookmarklet/page3.html', c,
                               context_instance=RequestContext(req))
@@ -118,8 +112,6 @@ def form3(req):
 
 def add_post(req):
     c = {}
-    c.update(csrf(req))
-
     s = req.session
     if req.method == 'POST':
         # If the form has been submitted...
