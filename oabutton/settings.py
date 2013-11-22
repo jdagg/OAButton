@@ -153,8 +153,8 @@ INSTALLED_APPS = (
     'django.contrib.auth',
 
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
 
+    'cookieless',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
@@ -222,14 +222,3 @@ LOGGING = {
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-if not DEBUG:
-    # Send cookies only over HTTPS connections for production setup
-    SESSION_COOKIE_SECURE = True
-
-# Expire cookies in 24 hours
-SESSION_COOKIE_AGE = 86400
-SESSION_SAVE_EVERY_REQUEST = False
-
-# Use persistent sessions in the database
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'
