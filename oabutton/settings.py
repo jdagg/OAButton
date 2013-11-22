@@ -18,6 +18,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 HOSTNAME = 'http://localhost:8000'
 DB_USER = 'postgres'
+DB_HOST = 'localhost'
 # End override vars
 
 try:
@@ -38,7 +39,7 @@ DATABASES = {'default': {
              'USER': DB_USER,    # Not used with sqlite3.
              'PASSWORD': '',                  # Not used with sqlite3.
              # Set to empty string for localhost. Not used with sqlite3.
-             'HOST': '',
+             'HOST': DB_HOST,
              # Set to empty string for default. Not used with sqlite3.
              'PORT': '',
              }}
